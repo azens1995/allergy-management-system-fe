@@ -6,6 +6,15 @@ export const COLUMNS = [
     accessor: 'id',
   },
   {
+    Header: 'Image',
+    accessor: 'image',
+    Cell: (tableProps) => {
+      return tableProps.row.original.image ? (
+        <img src={tableProps.row.original.image} height='200' width='200' />
+      ) : null;
+    },
+  },
+  {
     Header: 'Name',
     accessor: 'name',
   },
