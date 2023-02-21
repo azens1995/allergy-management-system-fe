@@ -1,7 +1,12 @@
 import axios from 'axios';
 import { API_BASE_URL, STATUS } from '../constants/api';
-import { getAccessToken } from '../services/storage.service';
 import { refreshToken } from '../services/auth.service';
+import {
+  getAccessToken,
+  removeToken,
+  setAccessToken,
+  setRefreshToken,
+} from '../services/storage.service';
 
 export const http = axios.create({
   baseURL: API_BASE_URL,
@@ -34,21 +39,26 @@ http.interceptors.response.use(
       error?.response?.status === STATUS.UNAUTHORIZED &&
       !config._retry
     ) {
-      console.log('Are we here??');
       config._retry = true;
       const result = await refreshToken();
-      console.log('Ref res');
-      console.log(result);
-      const { accessToken } = result?.data?.data;
-      console.log(`Access token ->${accessToken}`);
-      if (accessToken) {
-        config.headers = {
-          ...config.headers,
-          Authorization: `Bearer ${accessToken}`,
-        };
+      if (result.status === STATUS.SUCCESS) {
+        const { accessToken, refreshToken } = result?.data?.data;
+        setAccessToken(accessToken);
+        setRefreshToken(refreshToken);
+        console.log(`Access token ->${accessToken}`);
+        if (accessToken) {
+          config.headers = {
+            ...config.headers,
+            Authorization: `Bearer ${accessToken}`,
+          };
+        }
+        return http(config);
       }
-      return http(config);
+      // Remove Access and Refresh token
+      removeToken();
+      return Promise.reject(error);
     }
+    removeToken();
     return Promise.reject(error);
   }
 );

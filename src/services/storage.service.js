@@ -16,10 +16,23 @@ export const getAccessToken = () => {
   return localStorage.getItem(STORAGE.ACCESS_TOKEN);
 };
 
+export const removeAccessToken = () => {
+  return localStorage.removeItem(STORAGE.ACCESS_TOKEN);
+};
+
 export const setRefreshToken = (token) => {
   localStorage.setItem(STORAGE.REFRESH_TOKEN, token);
 };
 
 export const getRefreshToken = () => {
   return localStorage.getItem(STORAGE.REFRESH_TOKEN);
+};
+
+export const removeRefreshToken = () => {
+  return localStorage.removeItem(STORAGE.REFRESH_TOKEN);
+};
+
+export const removeToken = () => {
+  removeAccessToken();
+  removeRefreshToken();
 };
