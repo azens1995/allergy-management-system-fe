@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AllergyTable } from '../components/allergyTable';
-import { STATUS } from '../constants/api';
+import { LOGIN, STATUS } from '../constants/api';
 import { getAllergy } from '../services/allergy.service';
+import { removeToken } from '../services/storage.service';
 
 export const Home = () => {
   const [diseases, setDiseases] = useState([]);
@@ -23,9 +24,15 @@ export const Home = () => {
     navigate('/allergy');
   };
 
+  const logout = () => {
+    removeToken();
+    navigate(LOGIN);
+  };
+
   return (
     <div>
       <button onClick={openAddAllergy}>Add Allergy</button>
+      <button onClick={logout}>Logout</button>
       {diseases.length === 0 ? (
         <div>Loading...</div>
       ) : (
