@@ -1,4 +1,4 @@
-export const API_BASE_URL = process.env.API_URL;
+export const API_BASE_URL = 'http://localhost:3001/api';
 export const USER = '/user';
 export const ALLERGY = '/allergy';
 export const LOGIN = '/login';

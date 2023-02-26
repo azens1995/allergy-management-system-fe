@@ -3,7 +3,11 @@ import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { STATUS } from '../constants/api';
-import { addAllergy, updateAllergy } from '../services/allergy.service';
+import {
+  addAllergy,
+  updateAllergy,
+  uploadImageById,
+} from '../services/allergy.service';
 
 export default function AllergyDetail() {
   const { state } = useLocation();
@@ -51,11 +55,16 @@ export default function AllergyDetail() {
     treatments: Yup.string().required('Treatments is required'),
   });
 
+  function navigateToHome() {
+    navigate('/');
+  }
+
   const createAllergy = async (allergy) => {
-    const res = await addAllergy(allergy);
+    const allergyToUpload = { ...allergy };
+    allergyToUpload.image = null;
+    const res = await addAllergy(allergyToUpload);
     if (res.status === STATUS.CREATED) {
-      alert(res.data.message);
-      navigate('/');
+      return res;
     } else {
       alert('Error while creating allergy');
       console.log(res.data.message);
@@ -65,11 +74,17 @@ export default function AllergyDetail() {
   const editAllergy = async (allergy) => {
     const res = await updateAllergy(id, allergy);
     if (res.status === STATUS.SUCCESS) {
-      alert(res.data.message);
-      navigate('/');
+      return res;
     } else {
-      alert('Error while creating allergy');
+      alert('Error while updating allergy');
       console.log(res.data.message);
+    }
+  };
+
+  const uploadImage = async (id, image) => {
+    const res = await uploadImageById(id, image);
+    if (res.status === STATUS.SUCCESS) {
+      alert(res.data.message);
     }
   };
 
@@ -77,10 +92,19 @@ export default function AllergyDetail() {
     // Handle Login and process errors
     if (isAdd) {
       // Add allergy
-      createAllergy(values);
+      console.log(values);
+      const res = await createAllergy(values);
+      if (values.image && res.data.data.id) {
+        await uploadImage(res.data.data.id, values.image);
+      }
+      navigateToHome();
     } else {
       // Update allergy
-      editAllergy(values);
+      const res = await editAllergy(values);
+      if (values.image && res.data.data.id) {
+        await uploadImage(res.data.data.id, values.image);
+      }
+      navigateToHome();
     }
     onSubmitProps.setSubmitting(false);
   };
@@ -91,7 +115,7 @@ export default function AllergyDetail() {
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ isValid, isSubmitting }) => {
+      {({ isValid, isSubmitting, setFieldValue }) => {
         return (
           <Form>
             <div className='form-control'>
@@ -131,6 +155,19 @@ export default function AllergyDetail() {
               <label htmlFor='isHighRisk'>Is High Risk?</label>
               <Field type='checkbox' id='isHighRisk' name='isHighRisk'></Field>
               <ErrorMessage name='isHighRisk' />
+            </div>
+            <div className='form-control'>
+              <label htmlFor='image'>Upload Image</label>
+              <input
+                type='file'
+                accept='image/*'
+                id='image'
+                name='image'
+                onChange={(event) => {
+                  setFieldValue('image', event.currentTarget.files[0]);
+                }}
+              ></input>
+              <ErrorMessage name='image' />
             </div>
             <button type='submit' disabled={!isValid && isSubmitting}>
               {isAdd ? 'Add' : 'Update'} Allergy
