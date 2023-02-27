@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePagination, useTable } from 'react-table';
-import { COLUMNS } from './columns';
 import './table.css';
 
 export const AllergyTable = ({ allergies, columns }) => {
