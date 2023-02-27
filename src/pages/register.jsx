@@ -51,42 +51,60 @@ const Register = () => {
       >
         {(formik) => {
           return (
-            <Form>
-              <div className='form-control'>
-                <label htmlFor='firstName'>First Name</label>
-                <Field type='text' id='firstName' name='firstName'></Field>
-                <ErrorMessage className='error' name='firstName' />
-              </div>
+            <>
+              <Form>
+                <div className='form-control'>
+                  <label htmlFor='firstName'>First Name</label>
+                  <Field type='text' id='firstName' name='firstName'></Field>
+                  <ErrorMessage
+                    component='span'
+                    className='error'
+                    name='firstName'
+                  />
+                </div>
 
-              <div className='form-control'>
-                <label htmlFor='lastName'>Last Name</label>
-                <Field type='text' id='lastName' name='lastName'></Field>
-                <ErrorMessage className='error' name='lastName' />
-              </div>
-              <div className='form-control'>
-                <label htmlFor='email'>Email</label>
-                <Field type='text' id='email' name='email'></Field>
-                <ErrorMessage component='div' className='error' name='email' />
-              </div>
+                <div className='form-control'>
+                  <label htmlFor='lastName'>Last Name</label>
+                  <Field type='text' id='lastName' name='lastName'></Field>
+                  <ErrorMessage
+                    component='span'
+                    className='error'
+                    name='lastName'
+                  />
+                </div>
+                <div className='form-control'>
+                  <label htmlFor='email'>Email</label>
+                  <Field type='text' id='email' name='email'></Field>
+                  <ErrorMessage
+                    component='span'
+                    className='error'
+                    name='email'
+                  />
+                </div>
 
-              <div className='form-control'>
-                <label htmlFor='password'>Password</label>
-                <Field type='text' id='password' name='password'></Field>
-                <ErrorMessage
-                  component='div'
-                  className='error'
-                  name='password'
-                />
-              </div>
+                <div className='form-control'>
+                  <label htmlFor='password'>Password</label>
+                  <Field type='text' id='password' name='password'></Field>
+                  <ErrorMessage
+                    component='span'
+                    className='error'
+                    name='password'
+                  />
+                </div>
 
-              <button
-                type='submit'
-                className='submit btn-positive'
-                disabled={!formik.isValid && formik.isSubmitting}
-              >
-                Register
+                <button
+                  type='submit'
+                  className='btn-login btn-signup'
+                  disabled={!formik.isValid && formik.isSubmitting}
+                >
+                  Register
+                </button>
+              </Form>
+              <p>OR</p>
+              <button onClick={() => navigate('/login')} className='btn-login'>
+                Login
               </button>
-            </Form>
+            </>
           );
         }}
       </Formik>

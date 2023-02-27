@@ -67,7 +67,6 @@ export default function AllergyDetail() {
       return res;
     } else {
       alert('Error while creating allergy');
-      console.log(res.data.message);
     }
   };
 
@@ -77,7 +76,6 @@ export default function AllergyDetail() {
       return res;
     } else {
       alert('Error while updating allergy');
-      console.log(res.data.message);
     }
   };
 
@@ -89,10 +87,8 @@ export default function AllergyDetail() {
   };
 
   const onSubmit = async (values, onSubmitProps) => {
-    // Handle Login and process errors
     if (isAdd) {
       // Add allergy
-      console.log(values);
       const res = await createAllergy(values);
       if (values.image && res.data.data.id) {
         await uploadImage(res.data.data.id, values.image);
@@ -121,40 +117,66 @@ export default function AllergyDetail() {
             <div className='form-control'>
               <label htmlFor='name'>Name</label>
               <Field type='text' id='name' name='name'></Field>
-              <ErrorMessage name='name' />
+              <ErrorMessage component='span' className='error' name='name' />
             </div>
             <div className='form-control'>
               <label htmlFor='causes'>Causes</label>
               <Field type='text' id='causes' name='causes'></Field>
-              <ErrorMessage name='causes' />
+              <ErrorMessage component='span' className='error' name='causes' />
             </div>
             <div className='form-control'>
               <label htmlFor='symptoms'>Symptoms</label>
               <Field type='text' id='symptoms' name='symptoms'></Field>
-              <ErrorMessage name='symptoms' />
+              <ErrorMessage
+                component='span'
+                className='error'
+                name='symptoms'
+              />
             </div>
             <div className='form-control'>
               <label htmlFor='causes'>Severity</label>
               <Field type='text' id='severity' name='severity'></Field>
-              <ErrorMessage name='severity' />
+              <ErrorMessage
+                component='span'
+                className='error'
+                name='severity'
+              />
             </div>
 
             <div className='form-control'>
               <label htmlFor='preventions'>Preventions</label>
               <Field type='text' id='preventions' name='preventions'></Field>
-              <ErrorMessage name='preventions' />
+              <ErrorMessage
+                component='span'
+                className='error'
+                name='preventions'
+              />
             </div>
 
             <div className='form-control'>
               <label htmlFor='causes'>Treatments</label>
               <Field type='text' id='treatments' name='treatments'></Field>
-              <ErrorMessage name='treatments' />
+              <ErrorMessage
+                component='span'
+                className='error'
+                name='treatments'
+              />
             </div>
 
             <div className='form-control'>
-              <label htmlFor='isHighRisk'>Is High Risk?</label>
-              <Field type='checkbox' id='isHighRisk' name='isHighRisk'></Field>
-              <ErrorMessage name='isHighRisk' />
+              <div className='custom-checkbox'>
+                <label htmlFor='isHighRisk'>Is High Risk?</label>
+                <Field
+                  type='checkbox'
+                  id='isHighRisk'
+                  name='isHighRisk'
+                ></Field>
+              </div>
+              <ErrorMessage
+                component='span'
+                className='error'
+                name='isHighRisk'
+              />
             </div>
             <div className='form-control'>
               <label htmlFor='image'>Upload Image</label>
@@ -167,9 +189,22 @@ export default function AllergyDetail() {
                   setFieldValue('image', event.currentTarget.files[0]);
                 }}
               ></input>
-              <ErrorMessage name='image' />
+              {initialValues.image && (
+                <img
+                  src={initialValues.image}
+                  alt='Image of the disease'
+                  name='img'
+                  height='200'
+                  width='200'
+                />
+              )}
+              <ErrorMessage component='span' className='error' name='image' />
             </div>
-            <button type='submit' disabled={!isValid && isSubmitting}>
+            <button
+              className='btn-login'
+              type='submit'
+              disabled={!isValid && isSubmitting}
+            >
               {isAdd ? 'Add' : 'Update'} Allergy
             </button>
           </Form>

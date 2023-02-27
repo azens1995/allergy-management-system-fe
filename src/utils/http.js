@@ -30,9 +30,6 @@ http.interceptors.response.use(
     return res;
   },
   async (error) => {
-    console.log('============');
-    console.log(error);
-    console.log('============');
     const config = error?.config;
     if (
       error?.response &&
@@ -45,7 +42,7 @@ http.interceptors.response.use(
         const { accessToken, refreshToken } = result?.data?.data;
         setAccessToken(accessToken);
         setRefreshToken(refreshToken);
-        console.log(`Access token ->${accessToken}`);
+
         if (accessToken) {
           config.headers = {
             ...config.headers,

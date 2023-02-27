@@ -38,25 +38,116 @@
 }
 
 body {
-  background: #0f0c29; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #24243e,
-    #302b63,
-    #0f0c29
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #24243e,
-    #302b63,
-    #0f0c29
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: white;
 }
 
 .App {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding-bottom: 100px;
+}
+
+.form-control {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+label {
+  margin-right: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+input {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 8px 0;
+  width: 100%;
+}
+
+.error {
+  margin-right: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #ff3636;
+}
+
+input {
+  padding-left: 8px;
+}
+
+.custom-checkbox {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.custom-checkbox label {
+  width: 100%;
+  text-align: left;
+}
+
+.custom-checkbox input {
+  width: auto;
+}
+
+.form-control input#image {
+  padding-left: 8px;
+}
+
+.action-button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 60px;
+}
+
+.action-button-wrapper button,
+.btn {
+  width: 260px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  outline: none;
+  border: 0;
+  padding: 8px 16px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.button--primary {
+  font-weight: 500;
+  background-color: #1c72f2;
+  border-color: #1c72f2;
+}
+
+.button--secondary {
+  background-color: #00c46c;
+  border-color: #1cf2ce;
+}
+
+.btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.button--danger {
+  background-color: #ff3636;
+}
+
+.action-button-wrapper--table {
+  width: 160px;
 }

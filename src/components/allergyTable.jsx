@@ -4,8 +4,7 @@ import { usePagination, useTable } from 'react-table';
 import { COLUMNS } from './columns';
 import './table.css';
 
-export const AllergyTable = ({ allergies }) => {
-  const columns = useMemo(() => COLUMNS, []);
+export const AllergyTable = ({ allergies, columns }) => {
   const data = useMemo(() => allergies, []);
   const navigate = useNavigate();
 
@@ -48,10 +47,7 @@ export const AllergyTable = ({ allergies }) => {
           {page.map((row) => {
             prepareRow(row);
             return (
-              <tr
-                {...row.getRowProps()}
-                onClick={() => navigateDetail(row.original)}
-              >
+              <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   return (
                     <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
@@ -67,6 +63,7 @@ export const AllergyTable = ({ allergies }) => {
           style={{ margin: '8px' }}
           onClick={() => previousPage()}
           disabled={!canPreviousPage}
+          className='btn button--primary'
         >
           Previous
         </button>
@@ -74,6 +71,7 @@ export const AllergyTable = ({ allergies }) => {
           style={{ margin: '8px' }}
           onClick={() => nextPage()}
           disabled={!canNextPage}
+          className='btn button--secondary'
         >
           Next
         </button>

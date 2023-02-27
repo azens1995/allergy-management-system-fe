@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { STATUS } from '../constants/api';
 import { login } from '../services/auth.service';
 import { setAccessToken, setRefreshToken } from '../services/storage.service';
+import './login.css';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -46,26 +47,39 @@ export const Login = () => {
     >
       {(formik) => {
         return (
-          <section className='container'>
-            <Form>
+          <section className='login-page-wrapper'>
+            <h3>Login</h3>
+            <Form className='login-page'>
               <div className='form-control'>
                 <label htmlFor='email'>Email</label>
                 <Field type='text' id='email' name='email'></Field>
-                <ErrorMessage name='email' />
+                <ErrorMessage component='span' className='error' name='email' />
               </div>
               <div className='form-control'>
                 <label htmlFor='password'>Password</label>
                 <Field type='text' id='password' name='password'></Field>
-                <ErrorMessage name='password' />
+                <ErrorMessage
+                  component='span'
+                  className='error'
+                  name='password'
+                />
               </div>
 
               <button
                 type='submit'
+                className='btn-login'
                 disabled={!formik.isValid && formik.isSubmitting}
               >
                 Login
               </button>
             </Form>
+            <p>OR</p>
+            <button
+              onClick={() => navigate('/register')}
+              className='btn-login btn-signup'
+            >
+              Register
+            </button>
           </section>
         );
       }}
