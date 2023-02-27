@@ -2,12 +2,16 @@
 
 CRUD application with User registration and Login system for managing allergy
 
-### Features
+## Features
 
-1. Register user using email and password
-2. User Login
-3. View list of allergy
-4. Add, Update, Delete Allergy
+- [x] User Registration with email and password
+- [x] User Login
+- [x] View list of allergy
+- [x] Add update allergy
+- [x] API integrations
+- [ ] CSS Fix
+- [ ] Delete allergy (UI fix remaining)
+- [ ] Unit tests (In Progress)
 
 ### Installation
 
