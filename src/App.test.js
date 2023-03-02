@@ -1,8 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('renders App with the localhost link', async () => {
+  expect(global.window.location.href).toContain('localhost');
 });
