@@ -21,20 +21,21 @@ export const Login = () => {
 
   const onSubmit = async (values, onSubmitProps) => {
     // Handle Login and process errors
-    const { email, password } = values;
-    const res = await login(email, password);
-    if (res.status === STATUS.SUCCESS) {
-      const { accessToken, refreshToken } = res.data.data;
-      // Save access and refresh token to localstorage
-      setAccessToken(accessToken);
-      setRefreshToken(refreshToken);
-      navigate('/');
+    try {
+      const { email, password } = values;
+      const res = await login(email, password);
+      if (res.status === STATUS.SUCCESS) {
+        const { accessToken, refreshToken } = res.data.data;
+        // Save access and refresh token to localstorage
+        setAccessToken(accessToken);
+        setRefreshToken(refreshToken);
+        navigate('/');
+      }
+    } catch (error) {
+      console.error(error.response.data.message);
+      const message = error.response.data.message;
+      alert(message);
     }
-
-    if (res.status === STATUS.BAD_REQUEST) {
-      // TODO: Display Error dialog
-    }
-
     // Enable the submit button
     onSubmitProps.setSubmitting(false);
   };

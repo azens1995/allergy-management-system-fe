@@ -11,6 +11,7 @@ export const Home = () => {
   const [diseases, setDiseases] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const navigate = useNavigate();
+
   const getData = async () => {
     const res = await getAllergy();
     if (res.status === STATUS.SUCCESS) {
@@ -39,8 +40,8 @@ export const Home = () => {
 
   const handleDelete = async (id) => {
     try {
-      const { message } = await deleteAllergy(id);
-      alert(message);
+      const { data } = await deleteAllergy(id);
+      alert(data.message);
     } catch (err) {
       alert(err.response.message);
     }

@@ -21,24 +21,21 @@ const Register = () => {
   });
 
   const onSubmit = async (values, onSubmitProps) => {
-    const { firstName, lastName, email, password } = values;
-    const res = await register(firstName, lastName, email, password);
-    if (res.status === STATUS.CREATED) {
-      alert(res.data.message);
-      navigate('/login');
-    } else {
-      alert(res.data.message);
+    try {
+      const { firstName, lastName, email, password } = values;
+      const res = await register(firstName, lastName, email, password);
+      if (res.status === STATUS.CREATED) {
+        alert(res.data.message);
+        navigate('/login');
+      }
+    } catch (error) {
+      console.error(error.response.data.message);
+      const message = error.response.data.message;
+      alert(message);
     }
     // Enable the submit button
     onSubmitProps.setSubmitting(false);
   };
-
-  const formik = useFormik({
-    initialValues,
-    onSubmit,
-    // validate,
-    validationSchema,
-  });
 
   return (
     <div className='container'>
