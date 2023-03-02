@@ -1,16 +1,14 @@
-import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import Navbar from './components/navbar';
-import AllergyDetail from './pages/allergyDetail';
 import { Home } from './pages/home';
 import { Login } from './pages/login';
 import Register from './pages/register';
+import { Route, Routes } from 'react-router-dom';
+import AllergyDetail from './pages/allergyDetail';
 import { ProtectedRoute } from './utils/protectedRoute';
 
 function App() {
   return (
     <div className='App'>
-      {/* <Navbar /> */}
       <Routes>
         <Route
           path='/'
