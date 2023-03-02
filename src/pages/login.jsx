@@ -75,7 +75,7 @@ export const Login = () => {
             </Form>
             <p>OR</p>
             <button
-              onClick={() => navigate('/register')}
+              onClick={() => navigate('/register', { replace: true })}
               className='btn-login btn-signup'
             >
               Register

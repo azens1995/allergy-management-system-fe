@@ -11,8 +11,9 @@ import {
 
 export default function AllergyDetail() {
   const { state } = useLocation();
-  const { id } = useParams();
-  const isAdd = !id;
+  const { actionType, id } = useParams();
+  const isAdd = actionType === 'add';
+  console.log(actionType);
   const navigate = useNavigate();
 
   const initialValues = {
@@ -26,7 +27,7 @@ export default function AllergyDetail() {
     image: '',
   };
 
-  if (id) {
+  if (!isAdd) {
     const {
       name,
       causes,

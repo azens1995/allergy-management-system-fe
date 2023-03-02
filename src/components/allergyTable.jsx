@@ -1,11 +1,9 @@
 import React, { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { usePagination, useTable } from 'react-table';
 import './table.css';
 
 export const AllergyTable = ({ allergies, columns }) => {
   const data = useMemo(() => allergies, []);
-  const navigate = useNavigate();
 
   const tableInstance = useTable({ columns, data }, usePagination);
 
@@ -21,10 +19,6 @@ export const AllergyTable = ({ allergies, columns }) => {
     prepareRow,
   } = tableInstance;
 
-  const navigateDetail = (allergyDetail) => {
-    navigate(`/allergy/${allergyDetail.id}`, { state: allergyDetail });
-  };
-
   return (
     <>
       <table {...getTableProps()}>
@@ -32,12 +26,7 @@ export const AllergyTable = ({ allergies, columns }) => {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>
-                  {column.render('Header')}
-                  {/* <span>
-                  {column.isSorted ? (column.isSortedDesc ? ' ▼' : ' ▲') : ''}
-                </span> */}
-                </th>
+                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
               ))}
             </tr>
           ))}

@@ -23,7 +23,7 @@ export const Home = () => {
   }, []);
 
   const openAddAllergy = () => {
-    navigate('/allergy');
+    navigate('/allergy/add');
   };
 
   const logout = () => {
@@ -32,7 +32,7 @@ export const Home = () => {
   };
 
   const navigateDetail = (allergyDetail) => {
-    navigate(`/allergy/${allergyDetail.id}`, { state: allergyDetail });
+    navigate(`/allergy/update/${allergyDetail.id}`, { state: allergyDetail });
   };
 
   const handleDelete = async (id) => {
@@ -127,7 +127,7 @@ export const Home = () => {
         </button>
       </div>
       {diseases.length === 0 ? (
-        <div>Loading...</div>
+        <div id='loading'>Loading...</div>
       ) : (
         <AllergyTable allergies={diseases} columns={COLUMNS} />
       )}
