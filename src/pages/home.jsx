@@ -9,11 +9,13 @@ import { format } from '../utils/dateFormat';
 
 export const Home = () => {
   const [diseases, setDiseases] = useState([]);
+  const [isLoading, setLoading] = useState(true);
   const navigate = useNavigate();
   const getData = async () => {
     const res = await getAllergy();
     if (res.status === STATUS.SUCCESS) {
       const { rows } = res.data.data;
+      setLoading(false);
       setDiseases(rows);
     }
   };
@@ -126,8 +128,10 @@ export const Home = () => {
           Logout
         </button>
       </div>
-      {diseases.length === 0 ? (
+      {isLoading ? (
         <div id='loading'>Loading...</div>
+      ) : diseases.length === 0 ? (
+        <div>No data available</div>
       ) : (
         <AllergyTable allergies={diseases} columns={COLUMNS} />
       )}

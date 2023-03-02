@@ -13,7 +13,6 @@ export default function AllergyDetail() {
   const { state } = useLocation();
   const { actionType, id } = useParams();
   const isAdd = actionType === 'add';
-  console.log(actionType);
   const navigate = useNavigate();
 
   const initialValues = {
@@ -61,9 +60,7 @@ export default function AllergyDetail() {
   }
 
   const createAllergy = async (allergy) => {
-    const allergyToUpload = { ...allergy };
-    allergyToUpload.image = null;
-    const res = await addAllergy(allergyToUpload);
+    const res = await addAllergy(allergy);
     if (res.status === STATUS.CREATED) {
       return res;
     } else {
@@ -91,18 +88,14 @@ export default function AllergyDetail() {
     if (isAdd) {
       // Add allergy
       const res = await createAllergy(values);
-      if (values.image && res.data.data.id) {
-        await uploadImage(res.data.data.id, values.image);
-      }
-      navigateToHome();
     } else {
       // Update allergy
       const res = await editAllergy(values);
-      if (values.image && res.data.data.id) {
-        await uploadImage(res.data.data.id, values.image);
-      }
-      navigateToHome();
+      // if (values.image && res.data.data.id) {
+      //   await uploadImage(res.data.data.id, values.image);
+      // }
     }
+    navigateToHome();
     onSubmitProps.setSubmitting(false);
   };
 
